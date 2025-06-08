@@ -1,0 +1,37 @@
+\providecommand{\topdir}{..}
+\documentclass[../main.tex]{subfiles}
+
+\newacronym[description={The absorption of x-rays by specific core-electrons to unoccupied molecular obitals}]
+{glos:NEXAFS}{NEXAFS}{Near Edge X-ray Absorption Fine Structure}
+
+
+\begin{document}
+	\chapter{NEXAFS Spectroscopy}\label{chap:04-NEXAFS}
+		\gls{glos:NEXAFS} is a method that uses the energy of x-rays to excite electrons into unoccupied orbital levels. Generally, when two electron wavefunctions overlap and hybridise, a bonding orbital and an anti-bonding orbital are formed, which have some energy separation (this was previously covered for polymers in \cref{chap:02-polymers}).
+		The bonding orbital is typically occupied (though not always) meaning that transitions can be easily made to the anti-bonding orbital. This forms the basis for many spectroscopic measurements - by aligning incoming X-ray energy to the energy difference between unoccupied orbitals and the anti-bonding levels, information can be gained about the molecular material and it's composition. 
+		
+	\section{Angle Resolved NEXAFS}\label{sec:04-NEXAFS-AR}
+		Because molecular orbitals have "vector" densities (i.e. \gls{glos:sigmabondstar}, \gls{glos:pibondstar}), polarised X-ray sources have sensitivity and discriminate between various sorts of bonds and orientations. 
+		In fact, there are four typical types of bonding:
+		\begin{itemize}
+			\item Single Bond - \gls{glos:sigmabond} along the displacement direction - overlap of two S orbitals.
+			\item Double Bond - \gls{glos:sigmabond} along the displacement direction and \gls{glos:pibond} along a singular perpendicular direction.
+			\item Triple Bond - \gls{glos:sigmabond} along the displacement direction and \gls{glos:pibond} through the perpendicular plane.
+			\item Aromatic Ring - \gls{glos:sigmabond} through the plane (connecting a hexagon of atoms) and \gls{glos:pibond} in the out-of-plane direction.
+		\end{itemize}
+		The consequence for these arrangements is that the scattering amplitudes depend on these features being present in your material system.
+		
+		
+		
+		
+		
+	\section{}
+		
+		
+
+\ifSubfilesClassLoaded{
+	\printbibliography{}
+	\printglossaries
+}{} % we have no 'else' action
+	
+\end{document}

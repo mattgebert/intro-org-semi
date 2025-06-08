@@ -62,7 +62,11 @@
 \usepackage{fancyhdr} % Generate fancy headers - see below.
 \usepackage{svg} % allow inclusion of svg items. Note requires use of Inkscape. https://tex.stackexchange.com/a/74693/137109
 
-\usepackage[toc,section=chapter]{glossaries} %Allows the use of a glossary.
+
+
+%\usepackage[toc,section=chapter]{glossaries} %Allows the use of a glossary. https://mirror.aarnet.edu.au/pub/CTAN/macros/latex/contrib/glossaries/glossariesbegin.pdf
+\usepackage[toc, acronym, section=chapter]{glossaries-extra} % Used extras so we can define only first time hyperlinking for an acyronym per chapter. See usage below.
+
 
 % Packages for Latex Table Generator
 %\usepackage[normalem]{ulem}
@@ -245,6 +249,17 @@
     \hline\hline
 }
 
+%https://tex.stackexchange.com/questions/404051/glossaries-hyperlink-only-at-the-first-occurrence-in-every-chapter
+\GlsXtrEnableLinkCounting[section]{general,acronym}
+% disable hyperlink if link count is greater than 1:
+\renewcommand*{\glslinkpresetkeys}{%
+	\ifnum\GlsXtrLinkCounterValue{\glslabel}>1
+	\setkeys{glslink}{hyper=false}%
+	\fi
+} 
+%\setacronymstyle{long-short} % Glossaries command - Allow acroynms to be defined, then only used once through the document.
+\setabbreviationstyle[acronym]{long-short} % Glossaries-extra command - Allow acroynms to be defined, then only used once through the document.
+
 % Subfile bibliographies, using biblatex. See: https://tex.stackexchange.com/a/578992/137109
 %\addglobalbib{MyLibrary}
 %\renewcommand{\topdir}{.}
@@ -416,6 +431,10 @@
 
 	%Introduces myself, my research, my motivations and is basically an opportunity to give my own individual context and story.
     \subfile{chapters/01-intro_.tex}
+    \subfile{chapters/02-polymers.tex}
+    \subfile{chapters/04-nexafs.tex}
+    \subfile{chapters/05-saxs-waxs.tex}
+    \subfile{chapters/06-ReXS.tex}
 
 
 	% Generate bibliography.   
