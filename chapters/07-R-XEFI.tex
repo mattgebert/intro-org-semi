@@ -26,7 +26,7 @@
 	and $\vec{k_i}$ is the wavevector of the X-ray beam in layer $i$, at position $\vec{r}$.
 	
 	Here the transmission and reflection components represent the sum of all multiple-scattering events in the layer.
-	The complex constants $T_i$ and $R_i$ result of the requirement for continuity of the electric field vector at the boundary - more specifically, through a recursive solution using the Frensel coefficients for each interface.
+	The complex constants $T_i$ and $R_i$ result of the requirement for continuity of the electric field vector at the boundary - more specifically, through a recursive solution using the Fresnel coefficients for each interface.
 
 	Typically, especially for non-resonant X-ray scattering, the x-component wavevector $k_x$ is ignored and the attenuation is treated as negligible.
 
@@ -66,30 +66,57 @@
 
 	In the context of grazing incidence experiments, the X-ray beam is typically highly aligned and polarised. It will be routine to perform measurements with both S- and P-polarised X-rays.
 
-	\subsection{Frensel Coefficients}
-	Frensel coefficients describe the amplitude of reflected and transmitted waves at an interface between two media with different refractive indices. For S-polarised waves, the Frensel coefficients are given by
+	\subsection{Fresnel Coefficients}
+	Fresnel coefficients describe the amplitude of reflected and transmitted waves at an interface between two media with different refractive indices. For S-polarised waves, the Fresnel coefficients are given by
 	\begin{align}
-		t_{s, i} &= \frac{2 k_{i, z}}{k_{i, z} + k_{t, z}} \\
-		r_{s, i} &= \frac{k_{i, z} - k_{t, z}}{k_{i,z} + k_{t,z}} = t_{s,i} - 1
+		t_{i, i+1}^{s} &= \frac{2 k_{i, z}}{k_{i, z} + k_{i+1, z}} \\
+		r_{i, i+1}^{s} &= \frac{k_{i, z} - k_{i+1, z}}{k_{i,z} + k_{i+1,z}} = t_{s,i} - 1
 	\end{align}
 	For P-polarised waves, the Fresnel coefficients are given by
 	\begin{align}
-		t_{p, i} &= \frac{2 k_{i, z}}{n^2 k_{i, z} + k_{t, z}} \\
-		r_{p, i} &= \frac{n^2 k_{t, z} - k_{i, z}}{n^2 k_{t,z} + k_{i,z}}
+		t_{i, i+1}^{p} &= \frac{2 k_{i, z}}{n^2 k_{i, z} + k_{i+1, z}} \\
+		r_{i, i+1}^{p} &= \frac{n^2 k_{i+1, z} - k_{i, z}}{n^2 k_{i+1,z} + k_{i,z}}
 	\end{align}
-	At resonance, the refractive index $n$ can be modified by a significant amount. Consider the imaginary component in Polystyrene (CH) at the carbon K edge changing magnitude from 1e-4 to 6e-3. For P3MEEET (C11H16O3S) at the resonant sulfur K edge, the magnitude changes from 9e-7 to 5.7e-6.
+	At resonance, the refractive index $n$ can be modified by a significant amount. Consider the imaginary component in Polystyrene (CH) at the carbon K edge changing magnitude from 1e-4 to 6e-3. For P3MEEET (C\textsubscript{11}H\textsubscript{16}O\textsubscript{3}S) at the resonant sulfur K edge, the magnitude changes from 9e-7 to 5.7e-6.
 
-	\section{Taylor Series Derivation}
-	Following the derivation of Borne \& Wolf (1985) and Savakhin et al. (2020).
-	
+	The polarisation dependence for the Fresnel coefficients is not significantly changed by $n^2$, so we approximate using the s-polarisation case.
+
+	\section{Recursive result for the electric field between multiple interfaces}
+	Following the derivation of Borne \& Wolf (1985) and Savakhin et al. (2020), we derive the electric field in a multi-layer system, accounting for decaying x-propogation of waves.
+
 	The total electric field is the sum of many reflections.
 	\begin{align}
 		E = E_1 + E_2 + E_3 + ... + E_N
 	\end{align}
 	
-	As we 
-
+	First consider some transmitted wave $E_t$ into layer $j$ and the corresponding incident wave $E_{j-1}$ from the previous layer.
+	\begin{align}
+		i &= E_{j}^{t} \exp\left[\mathbf{i}\left(\vec{k}\cdot \vec{r}\right)\right] \\
+		&= E_{j-1}^{t} t_{j-1,j} \exp\left[\mathbf{i}\left(\vec{k}\cdot \vec{r}\right)\right]
+		&= E_{j-1}^{t} 
+			\left(1 + r_{j-1,j}\right)
+			\exp\left[-\mathbf{i}\left(\vec{k}\cdot \vec{r}\right)\right]
+	\end{align}
 	
+	Secondly, we follow a reflection from the bottom interface $j,j+1$, with reflection coefficient $r_{j,j+1}$. The wave has now travelled additional vertical distance between the two interfaces, so we relabel the z-components $d_{i,i+1}$ for the thickness between interfaces $z_i$ and $z_{i+1}$. We also track the horizontal distance travelled in terms of $d_{i,i+1}$, as $c_{i,i+1} = d_{i,i+1} \tan(\theta_j)$, where $\theta_j$ is the angle of incidence in layer $j$ between interfaces $i, i+1$.
+	\begin{align}
+		ii &= E_{j-1}^{t} 
+			\left(1 + r_{j-1,j}\right) \times r_{j, j+1} 
+			\exp\left[-\mathbf{i}\left((2 d_{i,i+1} - z) k_z + () k_x  \right)\right]
+			&=E_{j-1}^{t} 
+			\left(1 + r_{j-1,j}\right) \times r_{j, j+1}
+			\exp\left[-\mathbf{i}\left((2 d_{i,i+1} - z) k_z\right)\right]
+			\exp\left[-\mathbf{i}\left(x k_x\right)\right]
+	\end{align}
+
+	The third component is a surface reflection from the top interface, noting that $r_{j+1,j} = -r_{j,j+1}$, corresponding to a phase shift of $\pi$.
+	\begin{align}
+		iii &= E_{j-1}^{t} 
+			\left(1 + r_{j-1,j}\right) \times r_{j, j+1} \times (- r_{j,j+1})
+			\exp\left[-\mathbf{i}\left((2 d_{i,i+1} + z) k_z\right)\right]
+			\exp\left[-\mathbf{i}\left(x k_x\right)\right]
+		
+
 	\ifSubfilesClassLoaded{
 		\printbibliography{}
 		\printglossaries
